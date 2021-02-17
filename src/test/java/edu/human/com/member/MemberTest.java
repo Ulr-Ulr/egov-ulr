@@ -36,6 +36,7 @@ public class MemberTest {
 		memberService.updateMember(memberVO);
 		memberVO.setEMPLYR_ID("user01");//수정할 아이디
 		memberVO.setUSER_NM("사용자_1");
+		memberVO.setORGNZT_ID("ORGNZT_ID00000");
 		//암호값에 공백이들어가면 쿼리에서 제외됨 비번변경 x
 		String secPassword = "";
 		memberVO.setPASSWORD(secPassword);

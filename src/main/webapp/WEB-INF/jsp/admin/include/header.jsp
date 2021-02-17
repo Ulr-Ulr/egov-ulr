@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!-- 관리자단헤더시작 header.jsp -->
-    <!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<!-- 관리자단 헤더 시작 header.jsp -->
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="utf-8">
@@ -33,7 +34,7 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
-  <!-- Navbar -->
+  <!-- 관리자화면 최상단 아이콘2개 Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
@@ -53,20 +54,20 @@
   </nav>
   <!-- /.navbar -->
 
-  <!-- Main Sidebar Container -->
+  <!-- 관리자화면 왼쪽메뉴부분 Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="./home.html" class="brand-link">
+    <!-- 관리자 상단로고 Brand Logo -->
+    <a href="home.html" class="brand-link">
       <img src="<c:url value='/' />resources/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Spring 관리자</span>
+      <span class="brand-text font-weight-light">Spring 프로젝트</span>
     </a>
 
     <!-- 왼쪽메뉴 Sidebar -->
     <div class="sidebar">
-      <!-- 로그인한 사용자 표시 Sidebar user panel (optional) -->
+      <!-- 로그인한 사용자표시 Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="<c:url value='/' />resources/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="<c:url value='/' />resources/dist/img/default-150x150.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">관리자</a>
@@ -85,14 +86,14 @@
         </div>
       </div>
 
-      <!-- 사용자 홈과 대시보드 메뉴Sidebar Menu -->
+      <!-- 사용자 홈과 대시보드 메뉴 Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-         <li class="nav-item">
+          <li class="nav-item">
             <a href="<c:url value='/' />" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-             	   사용자 홈
+                	사용자 홈
                 <span class="right badge badge-danger">New</span>
               </p>
             </a>
@@ -110,7 +111,7 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="<c:url value='/admin/member/list_member.do' />" class="nav-link">
-                <!--메뉴선택시 활성화active되는것은 j쿼리로 만들예정  -->
+                <!-- 위 메뉴선택시 활성화active 되는 것은 j쿼리로 만들예정입니다. -->
                   <i class="far fa-circle nav-icon"></i>
                   <p>관리자 관리</p>
                 </a>
@@ -121,16 +122,13 @@
                   <p>게시물 관리</p>
                 </a>
               </li>
-             
             </ul>
           </li>
- 
-         
-       
+          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
   </aside>
-    
+<!-- 관리자단 헤더 끝 -->
