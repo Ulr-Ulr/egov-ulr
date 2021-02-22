@@ -41,6 +41,49 @@ public class AdminController {
 	@Autowired
 	private EgovBBSManageService bbsMngService;
 	
+	@RequestMapping("/admin/board/view_board.do")
+	public String view_board(@ModelAttribute("searchVO") BoardVO boardVO, ModelMap model) throws Exception {
+		LoginVO user = new LoginVO();
+	    if(EgovUserDetailsHelper.isAuthenticated()){
+	    	user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
+		}
+
+		// 조회수 증가 여부 지정
+		boardVO.setPlusCount(true);
+
+		//---------------------------------
+		// 2009.06.29 : 2단계 기능 추가
+		//---------------------------------
+		if (!boardVO.getSubPageIndex().equals("")) {
+		    boardVO.setPlusCount(false);
+		}
+		////-------------------------------
+
+		boardVO.setLastUpdusrId(user.getUniqId());
+		BoardVO vo = bbsMngService.selectBoardArticle(boardVO);
+
+		model.addAttribute("result", vo);
+
+		model.addAttribute("sessionUniqId", user.getUniqId());
+
+		//----------------------------
+		// template 처리 (기본 BBS template 지정  포함)
+		//----------------------------
+		BoardMasterVO master = new BoardMasterVO();
+
+		master.setBbsId(boardVO.getBbsId());
+		master.setUniqId(user.getUniqId());
+
+		BoardMasterVO masterVo = bbsAttrbService.selectBBSMasterInf(master);
+
+		if (masterVo.getTmplatCours() == null || masterVo.getTmplatCours().equals("")) {
+		    masterVo.setTmplatCours("/css/egovframework/cop/bbs/egovBaseTemplate.css");
+		}
+
+		model.addAttribute("brdMstrVO", masterVo);
+		
+		return "admin/board/view_board";
+	}
 	@RequestMapping("/admin/board/list_board.do")
 	public String list_board(@ModelAttribute("searchVO") BoardVO boardVO, ModelMap model) throws Exception {
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
@@ -49,12 +92,12 @@ public class AdminController {
 		boardVO.setBbsNm(boardVO.getBbsNm());
 
 		BoardMasterVO vo = new BoardMasterVO();
-		
+		System.out.println("디버그: 게시판아이디는 "+boardVO.getBbsId());
 		vo.setBbsId(boardVO.getBbsId());
 		vo.setUniqId(user.getUniqId());
-		System.out.println("디버그: 게시판아이디는 "+boardVO.getBbsId());
+
 		BoardMasterVO master = bbsAttrbService.selectBBSMasterInf(vo);
-		
+
 		//-------------------------------
 		// 방명록이면 방명록 URL로 forward
 		//-------------------------------
@@ -65,7 +108,7 @@ public class AdminController {
 
 		boardVO.setPageUnit(propertyService.getInt("pageUnit"));
 		boardVO.setPageSize(propertyService.getInt("pageSize"));
-		
+
 		PaginationInfo paginationInfo = new PaginationInfo();
 
 		paginationInfo.setCurrentPageNo(boardVO.getPageIndex());
@@ -75,7 +118,7 @@ public class AdminController {
 		boardVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
 		boardVO.setLastIndex(paginationInfo.getLastRecordIndex());
 		boardVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
-		
+
 		Map<String, Object> map = bbsMngService.selectBoardArticles(boardVO, vo.getBbsAttrbCode());
 		int totCnt = Integer.parseInt((String)map.get("resultCnt"));
 

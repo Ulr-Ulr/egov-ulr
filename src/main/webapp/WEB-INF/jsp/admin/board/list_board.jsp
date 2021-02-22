@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://egovframework.gov/ctl/ui" prefix="ui" %>
 <%@ include file="../include/header.jsp" %>
 
 <!-- 대시보드 본문 Content Wrapper. Contains page content -->
@@ -83,8 +84,24 @@
                       <!-- 20~11 이전1페이지 > 이후2페이지 결과 10부터 -->
                       <c:out value="${paginationInfo.totalRecordCount+1-((searchVO.pageIndex-1)*searchVO.pageSize+status.count)}"/>
                       </td>
-                      <!-- 아래 a링크값은 리스트가 늘어날 수록 동적으로 bno값이 변하게 됩니다. 개발자가 jsp처리 -->
-                      <td><a href="<c:url value='/admin/board/view_board.do' />">${result.nttSj}</a></td>
+                      <td>
+                      <form name="view_form" action="<c:url value='/admin/board/view_board.do' />" method="post">
+                      <!-- 답글일경우 계단식표시 추가(아래) -->
+                      <c:if test="${result.replyLc!=0}">
+		                <c:forEach begin="0" end="${result.replyLc}" step="1">
+		                    &nbsp;<!-- 들여쓰기 역할하는 스페이스바 특수문자 -->
+		                </c:forEach>
+		                &#8627;<!-- 화살표 특수문자 -->
+		              </c:if>
+                      	<input type="hidden" name="bbsId" value="<c:out value='${result.bbsId}'/>" />
+                        <input type="hidden" name="nttId"  value="<c:out value="${result.nttId}"/>" />
+                        <input type="hidden" name="bbsTyCode" value="<c:out value='${brdMstrVO.bbsTyCode}'/>" />
+                        <input type="hidden" name="bbsAttrbCode" value="<c:out value='${brdMstrVO.bbsAttrbCode}'/>" />
+                        <input type="hidden" name="authFlag" value="<c:out value='${brdMstrVO.authFlag}'/>" />
+                        <input name="pageIndex" type="hidden" value="<c:out value='${searchVO.pageIndex}'/>"/>
+                        <span class="btn_submit" style="cursor:pointer;">${result.nttSj}</span>
+                      </form>
+                      </td>
                       <td>${result.frstRegisterNm}</td>
                       <td>${result.frstRegisterPnttm}</td>
                       <td><span class="badge bg-danger">${result.inqireCo}</span></td>
@@ -101,7 +118,7 @@
             
             <!-- 버튼영역 시작 -->
               <div class="card-body">
-              	<a href="<c:url value='/admin/board/insert_board.do' />" class="btn btn-primary float-right">새글</a>
+              	<a href="<c:url value='/admin/board/insert_board.do' />" class="btn btn-primary float-right">글작성</a>
               	<!-- 부트스트랩 디자인 버튼클래스를 이용해서 a태그를 버튼모양 만들기(위) -->
               	<!-- btn클래스명이 버튼모양으로 변경, btn-primary클래스명은 버튼색상을 변경하는역할 -->
               	<!-- 
@@ -117,21 +134,10 @@
             <!-- 페이징처리 시작 -->
             <div class="pagination justify-content-center">
             	<ul class="pagination">
-            	 <li class="paginate_button page-item previous disabled" id="example2_previous">
-            	 <a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
-            	 </li>
-            	 <!-- 위 이전게시물링크 -->
-            	 <li class="paginate_button page-item active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
-            	 <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
-            	 <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
-            	 <!-- 아래 다음게시물링크 -->
-            	 <li class="paginate_button page-item next" id="example2_next">
-            	 <a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
-            	 </li>
-            	 </ul>
+            	 <ui:pagination paginationInfo="${paginationInfo}" type="image" jsFunction="fn_egov_select_noticeList" /> 
+           	    </ul>
             </div>
-	  		<!-- 페이징처리 끝 -->     
-            
+	  		<!-- 페이징처리 끝 --> 
           </div>
         </div>
         
@@ -140,6 +146,13 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  
 
 <%@ include file="../include/footer.jsp" %>
+<script>
+$(document).ready(function(){
+	$(".btn_submit").on("click",function(){
+		var form_object = $(this).parent("form[name='view_form']");
+		form_object.submit();
+	});
+});
+</script>
