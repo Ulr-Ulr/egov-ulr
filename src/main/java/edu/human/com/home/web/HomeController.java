@@ -419,8 +419,15 @@ public class HomeController {
 	}
 	//method.RequestMethod=GET[POST] 없이사용하면, 둘다 허용되는 매핑이됨
 	@RequestMapping("/tiles/home.do")
-	public String home() throws Exception {
-		
+	public String home(ModelMap model) throws Exception {
+		//메인 페이지에 최근 게시물 출력하는 서비스 실행
+		BoardVO boardVO = new BoardVO();
+		Map<String,Object> boardMap = null;
+		boardVO.setPageUnit(3);//한페이지당 출력할 개수
+		boardVO.setPageSize(10);//하단 페이징 표시 개수
+		boardVO.setBbsId("BBSMSTR_BBBBBBBBBBBB");//갤러리것 가져오기
+		boardMap = bbsMngService.selectBoardArticles(boardVO, "BBSA02");
+		model.addAttribute("galleryList",boardMap.get("resultList"));
 		return "home.tiles";
 	}
 }
