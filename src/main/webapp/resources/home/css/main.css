@@ -259,7 +259,7 @@ header {
   }
 /* //슬라이드영역 */
 
-/* 겔러리최근게시물영역 */
+/* 갤러리최근게시물영역 */
 .about_area h2 {
 	font-size:20px;
 	padding: 27px 0 25px;
@@ -301,7 +301,7 @@ header {
 	border-top: 2px solid #333;
 	color:#666;
 }
-/* 겔러리최근게시물영역 */
+/* 갤러리최근게시물영역 */
 
 /* 공지사항최근게시물영역 */
 .app_line {display: none;}

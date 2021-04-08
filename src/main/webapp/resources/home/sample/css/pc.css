@@ -45,7 +45,7 @@
 } 
 /* //PC용 상단 로고메뉴 영역 */
 
-/* 컨테이너 겔러리,공지사항 최근게시물영역 */
+/* 컨테이너 갤러리,공지사항 최근게시물영역 */
 .place_list {padding:0px;}
 .appbbs_box {padding:0px;}
 .app_line a, .app_line a + a {
@@ -53,7 +53,7 @@
 	background-position:20px 50%;
 }
 
-/* //컨테이너 겔러리,공지사항 최근게시물영역 */
+/* //컨테이너 갤러리,공지사항 최근게시물영역 */
 
 /* PC용 푸터 영역 */
 .foot_area {padding-left:0px; padding-right:0px;}

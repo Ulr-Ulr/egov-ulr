@@ -138,7 +138,7 @@ if("${msg}"!="") { //RedirectAttributes 로 컨트롤러에서 보내온 값을 
               <li class="nav-item">
                 <a href="<c:url value='/' />admin/board/list_board.do?bbsId=BBSMSTR_BBBBBBBBBBBB" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>겔러리 관리</p>
+                  <p>갤러리 관리</p>
                 </a>
               </li>
             </ul>

@@ -563,7 +563,7 @@ public class HomeController {
 		Map<String,Object> boardMap = null;
 		boardVO.setPageUnit(3);//1페이당 출력할 개수
 		boardVO.setPageSize(10);//리스트하단 표시할 페이징 개수
-		boardVO.setBbsId("BBSMSTR_BBBBBBBBBBBB");//겔러리3개
+		boardVO.setBbsId("BBSMSTR_BBBBBBBBBBBB");//갤러리3개
 
 		PaginationInfo paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(boardVO.getPageIndex());
